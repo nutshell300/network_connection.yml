@@ -1,0 +1,38 @@
+---
+- name: manage state of Windows/Linux
+  hosts: win:nix
+  connection: local
+  gather_facts: True
+
+  tasks:
+
+   - name: print os type
+     debug:
+       var: ansible_distribution
+
+   - name: ping test for Windows
+     win_ping:
+     when: '"Windows" in ansible_distribution'
+   
+   - name: verify port 3389 is listening on target windows host
+     win_wait_for:
+       host: "{{inventory_hostname}}"
+       port: 3389
+       delay: 0
+       state: started
+       timeout: 1
+     when: '"Windows" in ansible_distribution'
+
+   - name: ping test for Linux
+     ping:
+     when: '"CentOS" in ansible_distribution'
+
+   - name: verify port 22 is listening on target linux host
+     wait_for:
+       host: "{{inventory_hostname}}" 
+       port: 22
+       delay: 0
+       state: started
+       timeout: 1
+     when: '"CentOS" in ansible_distribution'
+     

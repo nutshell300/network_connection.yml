@@ -1,0 +1,17 @@
+[nix]
+w2papl0000010.heb.com
+w2capl0015103.heb.com
+w2capl0015102.heb.com
+
+[win]
+ARCAPW0040206
+ARCAPW0016703
+
+[win:vars]
+ansible_user=pgrro
+ansible_password=######
+ansible_port=5985
+ansible_connection=winrm
+ansible_winrm_transport=kerberos
+ansible_winrm_server_cert_validation=ignore
+ansible_winrm_kerberos_delegation=true
